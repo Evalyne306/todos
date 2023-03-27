@@ -2,28 +2,33 @@ import React, { useState } from "react";
 
 function SignUp({ setUser }) {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [email, setEmail] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/users", {
+    fetch("/users", {  // Changed the endpoint to register
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username,
-        email ,
         password,
-        
+        email,
       }),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "created") {
+          setUser(data.data);
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 
   return (
@@ -42,9 +47,9 @@ function SignUp({ setUser }) {
         <input
           type="email"
           id="email"
-          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email" 
         />
         <label htmlFor="password">Password</label>
         <input
@@ -54,7 +59,6 @@ function SignUp({ setUser }) {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
-
         <button type="submit">Sign Up</button>
       </form>
     </div>

@@ -5,12 +5,13 @@ import Login from "./Login";
 import NavBar from "./NavBar";
 import Home from "./Home";
 
+
 function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     // auto-login
-    fetch("/me").then((r) => {
+    fetch("/user/login/check").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
       }
@@ -35,6 +36,7 @@ function App() {
             <Route path="/login">
               <Login setUser={setUser} />
             </Route>
+        
             <Route path="/">
               <Home />
             </Route>

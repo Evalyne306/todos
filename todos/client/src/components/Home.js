@@ -43,6 +43,7 @@
 
 // export default Home;
 import React from "react";
+import TodoForm from "./TodoForm";
 import pic from '/home/student/todos/client/src/components/notd.jpg'
 import pictwo from '/home/student/todos/client/src/note.jpg'
 import pica from '/home/student/todos/client/src/25.jpeg'
@@ -59,8 +60,9 @@ function Home({ user }) {
     return (
       <div>
         <h1>Welcome, {user.username}!</h1>
-
+<TodoForm/>
       </div>
+      
     );
   } else {
     return (
