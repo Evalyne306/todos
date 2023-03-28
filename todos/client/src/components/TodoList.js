@@ -64,7 +64,7 @@ function TodoList() {
     <div>
       <h1>Todo List</h1>
       {todos.map((todo) => (
-        <TodoCard key={todo._id} todo={todo} onDelete={handleDelete} />
+        <TodoCard key={todo._id} todo={todo} onDelete={() => handleDelete(todo._id)} />
       ))}
     </div>
   );
